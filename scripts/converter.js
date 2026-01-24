@@ -7,7 +7,15 @@ const mm = require('music-metadata');
 const NodeID3 = require('node-id3');
 
 // Configure fluent-ffmpeg to use the bundled FFmpeg binary
-ffmpeg.setFfmpegPath(ffmpegStatic);
+// Handle both development and packaged app scenarios
+let ffmpegPath = ffmpegStatic;
+
+// When app is packaged, ffmpeg-static is unpacked from asar
+if (ffmpegPath.includes('app.asar')) {
+  ffmpegPath = ffmpegPath.replace('app.asar', 'app.asar.unpacked');
+}
+
+ffmpeg.setFfmpegPath(ffmpegPath);
 
 class AudiobookConverter extends EventEmitter {
   constructor() {

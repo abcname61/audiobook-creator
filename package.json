@@ -1,6 +1,6 @@
 {
   "name": "audiobook-creator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Open-source audiobook creator - Convert MP3 to M4B with automatic organization",
   "main": "main.js",
   "scripts": {
@@ -51,6 +51,9 @@
       "public/**/*",
       "scripts/**/*",
       "node_modules/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/ffmpeg-static/**/*"
     ],
     "win": {
       "target": [

@@ -36,6 +36,32 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.2] - 2026-01-24
+
+### 🐛 Bug Fix
+- **CRITICAL**: Fixed FFmpeg not working in packaged app (spawn ENOTDIR error)
+- Configured electron-builder to unpack ffmpeg-static from asar archive
+- Updated converter.js to handle packaged app paths correctly
+
+### 🔧 Technical
+- Added `asarUnpack` configuration for ffmpeg-static binaries
+- Improved path resolution for development vs production environments
+
+## [1.0.1] - 2026-01-24
+
+### ✨ Aggiunto
+- FFmpeg binario incluso nell'applicazione (ffmpeg-static)
+- Applicazione completamente standalone, nessuna installazione esterna richiesta
+
+### 🔄 Modifiche
+- Rimossa dipendenza da FFmpeg di sistema
+- Migrato da SQLite a storage JSON per la libreria
+- Downgrade music-metadata a v7 per compatibilità CommonJS
+
+### 📦 Build
+- Dimensione bundle aumentata di ~19MB (da 91MB a 110MB)
+- Eliminati problemi di compilazione con moduli nativi
+
 ## [Unreleased]
 
 ### 🚀 Pianificato
