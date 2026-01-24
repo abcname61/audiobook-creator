@@ -36,6 +36,17 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.3] - 2026-01-24
+
+### 🐛 Bug Fix
+- **CRITICAL**: Fixed FFmpeg metadata syntax error
+- Corrected metadata option format (removed nested quotes)
+- Fixed "Unrecognized option" error during conversion
+
+### 🔧 Technical
+- Updated outputOptions syntax for proper FFmpeg argument parsing
+- Changed from `-metadata title="value"` to `-metadata` `title=value` format
+
 ## [1.0.2] - 2026-01-24
 
 ### 🐛 Bug Fix

@@ -80,11 +80,11 @@ class AudiobookConverter extends EventEmitter {
         .audioBitrate(metadata.bitrate)
         .format('ipod')
         .outputOptions([
-          '-f mp4',
-          `-metadata title="${metadata.title}"`,
-          `-metadata artist="${metadata.author}"`,
-          `-metadata album="${metadata.title}"`,
-          '-metadata genre="Audiobook"'
+          '-f', 'mp4',
+          '-metadata', `title=${metadata.title}`,
+          '-metadata', `artist=${metadata.author}`,
+          '-metadata', `album=${metadata.title}`,
+          '-metadata', 'genre=Audiobook'
         ]);
 
       // Aggiungi cover image se presente
@@ -134,16 +134,16 @@ class AudiobookConverter extends EventEmitter {
     return new Promise((resolve, reject) => {
       const command = ffmpeg()
         .input(listFilePath)
-        .inputOptions(['-f concat', '-safe 0'])
+        .inputOptions(['-f', 'concat', '-safe', '0'])
         .audioCodec('aac')
         .audioBitrate(metadata.bitrate)
         .format('ipod')
         .outputOptions([
-          '-f mp4',
-          `-metadata title="${metadata.title}"`,
-          `-metadata artist="${metadata.author}"`,
-          `-metadata album="${metadata.title}"`,
-          '-metadata genre="Audiobook"'
+          '-f', 'mp4',
+          '-metadata', `title=${metadata.title}`,
+          '-metadata', `artist=${metadata.author}`,
+          '-metadata', `album=${metadata.title}`,
+          '-metadata', 'genre=Audiobook'
         ]);
 
       // Aggiungi cover image se presente
