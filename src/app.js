@@ -20,6 +20,7 @@ const bitrateSelect = document.getElementById('bitrateSelect');
 
 const selectOutputBtn = document.getElementById('selectOutputBtn');
 const outputPathInput = document.getElementById('outputPathInput');
+const searchMetadataBtn = document.getElementById('searchMetadataBtn');
 
 const convertBtn = document.getElementById('convertBtn');
 const progressSection = document.getElementById('progressSection');
@@ -69,17 +70,20 @@ function switchView(viewId) {
 // File Selection
 selectFolderBtn.addEventListener('click', async () => {
   const result = await window.electronAPI.selectFolder();
-  
+
   if (result.success && result.files.length > 0) {
     selectedFiles = result.files;
     displayFiles();
     validateForm();
-    
+
     // Auto-suggest title from folder name
     if (!titleInput.value) {
       const folderName = result.path.split(/[\\/]/).pop();
       titleInput.value = folderName;
     }
+
+    // Abilita il pulsante di ricerca metadata se c'è un titolo
+    searchMetadataBtn.disabled = !titleInput.value.trim();
   }
 });
 
@@ -135,11 +139,68 @@ selectCoverBtn.addEventListener('click', async () => {
 // Output Path Selection
 selectOutputBtn.addEventListener('click', async () => {
   const result = await window.electronAPI.selectOutputPath();
-  
+
   if (result.success) {
     outputPath = result.path;
     outputPathInput.value = result.path;
     validateForm();
+  }
+});
+
+// Metadata Search
+searchMetadataBtn.addEventListener('click', async () => {
+  const title = titleInput.value.trim();
+
+  if (!title) {
+    alert('Inserisci un titolo prima di cercare');
+    return;
+  }
+
+  // Disable button and show loading
+  searchMetadataBtn.disabled = true;
+  searchMetadataBtn.innerHTML = `
+    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" style="animation: spin 1s linear infinite">
+      <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+    </svg>
+    Ricerca...
+  `;
+
+  try {
+    const result = await window.electronAPI.searchMetadata(title);
+
+    if (result.success) {
+      // Popola autore
+      if (result.author && !authorInput.value) {
+        authorInput.value = result.author;
+      }
+
+      // Popola copertina
+      if (result.coverPath) {
+        selectedCoverPath = result.coverPath;
+        const fileName = result.coverPath.split(/[\\/]/).pop();
+        coverFileName.textContent = fileName;
+
+        // Show preview
+        coverImage.src = `file://${result.coverPath}`;
+        coverPreview.style.display = 'block';
+      }
+
+      validateForm();
+      alert('Metadata trovati e applicati!');
+    } else {
+      alert(result.message || 'Nessun risultato trovato. Prova con un titolo diverso.');
+    }
+  } catch (error) {
+    alert(`Errore durante la ricerca: ${error.message}`);
+  } finally {
+    // Restore button
+    searchMetadataBtn.disabled = false;
+    searchMetadataBtn.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
+      </svg>
+      Cerca Online
+    `;
   }
 });
 
@@ -148,13 +209,18 @@ selectOutputBtn.addEventListener('click', async () => {
   input.addEventListener('input', validateForm);
 });
 
+// Enable search button when title is entered
+titleInput.addEventListener('input', () => {
+  searchMetadataBtn.disabled = !titleInput.value.trim();
+});
+
 function validateForm() {
-  const isValid = 
+  const isValid =
     selectedFiles.length > 0 &&
     titleInput.value.trim() !== '' &&
     authorInput.value.trim() !== '' &&
     outputPath !== null;
-  
+
   convertBtn.disabled = !isValid;
 }
 

@@ -49,7 +49,7 @@ app.whenReady().then(async () => {
 });
 
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit();
+  app.quit();
 });
 
 // IPC Handlers
@@ -136,5 +136,80 @@ function sendProgress(progress) {
     mainWindow.webContents.send('conversion-progress', progress);
   }
 }
+
+// Cerca metadata da Open Library API
+ipcMain.handle('search-metadata', async (event, title) => {
+  try {
+    const https = require('https');
+
+    // Cerca il libro su Open Library
+    const searchQuery = encodeURIComponent(title);
+    const searchUrl = `https://openlibrary.org/search.json?title=${searchQuery}&limit=1`;
+
+    return new Promise((resolve, reject) => {
+      https.get(searchUrl, (res) => {
+        let data = '';
+
+        res.on('data', (chunk) => {
+          data += chunk;
+        });
+
+        res.on('end', async () => {
+          try {
+            const result = JSON.parse(data);
+
+            if (result.docs && result.docs.length > 0) {
+              const book = result.docs[0];
+              const author = book.author_name ? book.author_name[0] : '';
+              const coverId = book.cover_i;
+
+              let coverPath = null;
+
+              // Scarica la copertina se disponibile
+              if (coverId) {
+                const coverUrl = `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+                const tempDir = app.getPath('temp');
+                coverPath = path.join(tempDir, `cover_${Date.now()}.jpg`);
+
+                const file = require('fs').createWriteStream(coverPath);
+                https.get(coverUrl, (coverRes) => {
+                  coverRes.pipe(file);
+                  file.on('finish', () => {
+                    file.close();
+                    resolve({
+                      success: true,
+                      author: author,
+                      coverPath: coverPath
+                    });
+                  });
+                }).on('error', () => {
+                  resolve({
+                    success: true,
+                    author: author,
+                    coverPath: null
+                  });
+                });
+              } else {
+                resolve({
+                  success: true,
+                  author: author,
+                  coverPath: null
+                });
+              }
+            } else {
+              resolve({ success: false, message: 'Nessun risultato trovato' });
+            }
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }).on('error', (error) => {
+        reject(error);
+      });
+    });
+  } catch (error) {
+    return { success: false, error: error.message };
+  }
+});
 
 // Event listener per progress viene configurato in app.whenReady()

@@ -12,7 +12,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Database
   getAudiobooks: () => ipcRenderer.invoke('get-audiobooks'),
   deleteAudiobook: (id) => ipcRenderer.invoke('delete-audiobook', id),
-  
+
+  // Metadata search
+  searchMetadata: (title) => ipcRenderer.invoke('search-metadata', title),
+
   // Listeners per eventi
   onConversionProgress: (callback) => {
     ipcRenderer.on('conversion-progress', (event, progress) => callback(progress));

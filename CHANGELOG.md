@@ -36,6 +36,26 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.5] - 2026-01-24
+
+### ✨ Aggiunto
+- **Ricerca automatica metadata**: Pulsante "Cerca Online" per trovare autore e copertina automaticamente
+- Integrazione con Open Library API per ricerca libri
+- Download automatico copertine da database pubblico
+
+### 🎨 UI/UX
+- Ridimensionamento interfaccia del 15% per migliore visualizzazione
+- Versione aggiornata a 1.0.5 nella sidebar
+- Pulsante di ricerca con animazione loading
+
+### 🐛 Bug Fix
+- Chiusura app su macOS ora funziona correttamente con il tasto rosso della finestra
+
+### 🔧 Technical
+- Nuovo handler IPC `search-metadata` per ricerca online
+- Utilizzo di HTTPS nativo di Node.js per chiamate API
+- Download e cache temporanea delle copertine
+
 ## [1.0.4] - 2026-01-24
 
 ### ✨ Aggiunto
