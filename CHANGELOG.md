@@ -36,6 +36,25 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.7] - 2026-01-24
+
+### 🔧 Miglioramenti Ricerca
+- **Ricerca più ampia**: Query generale invece di solo titolo (`q=` invece di `title=`)
+- **Algoritmo similarità migliorato**: Più permissivo con match parziali
+- **Priorità parole significative**: Ignora parole di 2 caratteri o meno
+- **Threshold intelligente**: Se nessun match sopra 50%, usa il primo risultato con copertina
+- **Più risultati analizzati**: Esamina fino a 5 risultati invece di 3
+- **Debug logging**: Log dettagliati per troubleshooting ricerca
+
+### 🐛 Bug Fix
+- Risolto problema con libri tradotti (es: "Il complotto contro l'America" ora trova risultati)
+- Migliorata gestione apostrofi e caratteri speciali nella ricerca
+
+### 🔧 Technical
+- Query API cambiata da `title=` a `q=` per ricerca più ampia
+- Algoritmo similarità con bonus per 2+ parole in comune
+- Fallback a primo risultato con copertina se score basso
+
 ## [1.0.6] - 2026-01-24
 
 ### 🔧 Miglioramenti

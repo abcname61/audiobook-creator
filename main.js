@@ -148,9 +148,9 @@ ipcMain.handle('search-metadata', async (event, title) => {
       .replace(/\s+/g, ' ')  // Normalizza spazi multipli
       .trim();
 
-    // Cerca il libro su Open Library
+    // Cerca il libro su Open Library con query più ampia
     const searchQuery = encodeURIComponent(cleanTitle);
-    const searchUrl = `https://openlibrary.org/search.json?title=${searchQuery}&limit=3`;
+    const searchUrl = `https://openlibrary.org/search.json?q=${searchQuery}&limit=5`;
 
     return new Promise((resolve, reject) => {
       https.get(searchUrl, (res) => {
@@ -176,11 +176,16 @@ ipcMain.handle('search-metadata', async (event, title) => {
                 const normB = normalize(b);
 
                 if (normA === normB) return 1;
-                if (normA.includes(normB) || normB.includes(normA)) return 0.8;
+                if (normA.includes(normB) || normB.includes(normA)) return 0.9;
 
-                const wordsA = normA.split(' ');
-                const wordsB = normB.split(' ');
+                const wordsA = normA.split(' ').filter(w => w.length > 2);
+                const wordsB = normB.split(' ').filter(w => w.length > 2);
                 const commonWords = wordsA.filter(word => wordsB.includes(word));
+
+                // Se hanno almeno 2 parole in comune significative, è un buon match
+                if (commonWords.length >= 2) {
+                  return 0.7 + (commonWords.length / Math.max(wordsA.length, wordsB.length)) * 0.3;
+                }
 
                 return commonWords.length / Math.max(wordsA.length, wordsB.length);
               };
@@ -189,11 +194,27 @@ ipcMain.handle('search-metadata', async (event, title) => {
               let bestMatch = result.docs[0];
               let bestScore = similarity(cleanTitle, bestMatch.title || '');
 
-              for (let i = 1; i < Math.min(3, result.docs.length); i++) {
+              // Log per debug
+              console.log(`Searching for: "${cleanTitle}"`);
+              console.log(`Result 0: "${bestMatch.title}" (score: ${bestScore.toFixed(2)})`);
+
+              for (let i = 1; i < Math.min(5, result.docs.length); i++) {
                 const score = similarity(cleanTitle, result.docs[i].title || '');
+                console.log(`Result ${i}: "${result.docs[i].title}" (score: ${score.toFixed(2)})`);
                 if (score > bestScore) {
                   bestScore = score;
                   bestMatch = result.docs[i];
+                }
+              }
+
+              console.log(`Best match: "${bestMatch.title}" (score: ${bestScore.toFixed(2)})`);
+
+              // Se il miglior score è troppo basso, prova a cercare tra i risultati con la copertina
+              if (bestScore < 0.5) {
+                const withCover = result.docs.filter(doc => doc.cover_i);
+                if (withCover.length > 0) {
+                  bestMatch = withCover[0];
+                  console.log(`Using first result with cover: "${bestMatch.title}"`);
                 }
               }
 
