@@ -139,19 +139,22 @@ function displayFiles() {
 // Cover Selection
 selectCoverBtn.addEventListener('click', async () => {
   const result = await window.electronAPI.selectFolder();
-  
+
   if (result.success && result.files.length > 0) {
-    const imageFile = result.files.find(f => 
+    const imageFile = result.files.find(f =>
       /\.(jpg|jpeg|png|gif|webp)$/i.test(f.name)
     );
-    
+
     if (imageFile) {
       selectedCoverPath = imageFile.path;
       coverFileName.textContent = imageFile.name;
-      
-      // Show preview
-      coverImage.src = `file://${imageFile.path}`;
-      coverPreview.style.display = 'block';
+
+      // Show preview using base64
+      const imageResult = await window.electronAPI.readImageFile(imageFile.path);
+      if (imageResult.success) {
+        coverImage.src = imageResult.dataUrl;
+        coverPreview.style.display = 'block';
+      }
     }
   }
 });
@@ -200,9 +203,12 @@ searchMetadataBtn.addEventListener('click', async () => {
         const fileName = result.coverPath.split(/[\\/]/).pop();
         coverFileName.textContent = fileName;
 
-        // Show preview
-        coverImage.src = `file://${result.coverPath}`;
-        coverPreview.style.display = 'block';
+        // Show preview using base64
+        const imageResult = await window.electronAPI.readImageFile(result.coverPath);
+        if (imageResult.success) {
+          coverImage.src = imageResult.dataUrl;
+          coverPreview.style.display = 'block';
+        }
       }
 
       validateForm();

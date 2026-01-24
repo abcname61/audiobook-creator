@@ -272,4 +272,34 @@ ipcMain.handle('search-metadata', async (event, title) => {
   }
 });
 
+// Leggi file immagine come base64
+ipcMain.handle('read-image-file', async (event, filePath) => {
+  try {
+    const imageData = await fs.readFile(filePath);
+    const base64 = imageData.toString('base64');
+    const ext = path.extname(filePath).toLowerCase();
+
+    // Determina il MIME type
+    const mimeTypes = {
+      '.jpg': 'image/jpeg',
+      '.jpeg': 'image/jpeg',
+      '.png': 'image/png',
+      '.gif': 'image/gif',
+      '.webp': 'image/webp'
+    };
+
+    const mimeType = mimeTypes[ext] || 'image/jpeg';
+
+    return {
+      success: true,
+      dataUrl: `data:${mimeType};base64,${base64}`
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message
+    };
+  }
+});
+
 // Event listener per progress viene configurato in app.whenReady()

@@ -16,6 +16,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   // Metadata search
   searchMetadata: (title) => ipcRenderer.invoke('search-metadata', title),
 
+  // Read image file as base64
+  readImageFile: (filePath) => ipcRenderer.invoke('read-image-file', filePath),
+
   // Listeners per eventi
   onConversionProgress: (callback) => {
     ipcRenderer.on('conversion-progress', (event, progress) => callback(progress));

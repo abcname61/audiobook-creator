@@ -36,6 +36,19 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.8] - 2026-01-24
+
+### 🐛 Bug Fix
+- **Anteprima copertina riparata**: Risolto problema di visualizzazione immagini con context isolation di Electron
+- Implementato sistema base64 per caricare immagini in modo sicuro nel renderer process
+- Fix applicato sia per selezione manuale che per ricerca automatica copertina
+
+### 🔧 Miglioramenti Tecnici
+- Nuovo IPC handler `read-image-file` per conversione sicura immagini a data URL
+- Supporto automatico MIME type per JPG, PNG, GIF e WebP
+
+---
+
 ## [1.0.7] - 2026-01-24
 
 ### 🔧 Miglioramenti Ricerca
