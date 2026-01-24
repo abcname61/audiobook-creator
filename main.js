@@ -142,9 +142,15 @@ ipcMain.handle('search-metadata', async (event, title) => {
   try {
     const https = require('https');
 
+    // Pulisci il titolo per la ricerca
+    let cleanTitle = title
+      .replace(/[_]/g, ' ')  // Sostituisci underscore con spazi
+      .replace(/\s+/g, ' ')  // Normalizza spazi multipli
+      .trim();
+
     // Cerca il libro su Open Library
-    const searchQuery = encodeURIComponent(title);
-    const searchUrl = `https://openlibrary.org/search.json?title=${searchQuery}&limit=1`;
+    const searchQuery = encodeURIComponent(cleanTitle);
+    const searchUrl = `https://openlibrary.org/search.json?title=${searchQuery}&limit=3`;
 
     return new Promise((resolve, reject) => {
       https.get(searchUrl, (res) => {
@@ -159,7 +165,40 @@ ipcMain.handle('search-metadata', async (event, title) => {
             const result = JSON.parse(data);
 
             if (result.docs && result.docs.length > 0) {
-              const book = result.docs[0];
+              // Funzione per calcolare similarità tra titoli
+              const similarity = (a, b) => {
+                const normalize = (str) => str.toLowerCase()
+                  .replace(/[^\w\s]/g, '')
+                  .replace(/\s+/g, ' ')
+                  .trim();
+
+                const normA = normalize(a);
+                const normB = normalize(b);
+
+                if (normA === normB) return 1;
+                if (normA.includes(normB) || normB.includes(normA)) return 0.8;
+
+                const wordsA = normA.split(' ');
+                const wordsB = normB.split(' ');
+                const commonWords = wordsA.filter(word => wordsB.includes(word));
+
+                return commonWords.length / Math.max(wordsA.length, wordsB.length);
+              };
+
+              // Trova il miglior match tra i risultati
+              let bestMatch = result.docs[0];
+              let bestScore = similarity(cleanTitle, bestMatch.title || '');
+
+              for (let i = 1; i < Math.min(3, result.docs.length); i++) {
+                const score = similarity(cleanTitle, result.docs[i].title || '');
+                if (score > bestScore) {
+                  bestScore = score;
+                  bestMatch = result.docs[i];
+                }
+              }
+
+              // Usa il miglior match trovato
+              const book = bestMatch;
               const author = book.author_name ? book.author_name[0] : '';
               const coverId = book.cover_i;
 

@@ -67,6 +67,20 @@ function switchView(viewId) {
   }
 }
 
+// Helper function to clean book title
+function cleanBookTitle(title) {
+  return title
+    // Rimuovi numeri iniziali e underscore
+    .replace(/^\d+[\s_-]*/g, '')
+    // Sostituisci underscore con spazi
+    .replace(/_/g, ' ')
+    // Rimuovi "Capitolo" e tutto quello che segue
+    .replace(/[\s_-]*(capitolo|cap|chapter|traccia|track|parte|part)[\s_-]*\d+.*$/gi, '')
+    // Normalizza gli spazi multipli
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 // File Selection
 selectFolderBtn.addEventListener('click', async () => {
   const result = await window.electronAPI.selectFolder();
@@ -76,10 +90,16 @@ selectFolderBtn.addEventListener('click', async () => {
     displayFiles();
     validateForm();
 
-    // Auto-suggest title from folder name
+    // Auto-suggest title from folder name or first file
     if (!titleInput.value) {
-      const folderName = result.path.split(/[\\/]/).pop();
-      titleInput.value = folderName;
+      let suggestedTitle = result.path.split(/[\\/]/).pop();
+
+      // Se la cartella non ha un nome significativo, prova col primo file
+      if (!suggestedTitle || suggestedTitle.length < 3) {
+        suggestedTitle = result.files[0].name;
+      }
+
+      titleInput.value = cleanBookTitle(suggestedTitle);
     }
 
     // Abilita il pulsante di ricerca metadata se c'è un titolo

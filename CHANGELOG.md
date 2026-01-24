@@ -36,6 +36,25 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.6] - 2026-01-24
+
+### 🔧 Miglioramenti
+- **Ricerca metadata migliorata**: Algoritmo di pulizia e normalizzazione titoli
+- Estrazione automatica del titolo principale da nomi file complessi
+- Rimozione automatica di "Capitolo", "Traccia", numeri e underscore
+- Gestione corretta di apostrofi e caratteri speciali (es: "l_America" → "l'America")
+- Algoritmo di similarità per scegliere il miglior match tra i risultati
+- Ricerca tra i primi 3 risultati invece di prendere solo il primo
+
+### 🐛 Bug Fix
+- Risolto problema di ricerca con titoli contenenti underscore e informazioni extra
+- Esempio: "01 Il complotto contro l_America_Capitolo 1" ora trova correttamente "Il complotto contro l'America"
+
+### 🔧 Technical
+- Funzione `cleanBookTitle()` per normalizzazione titoli
+- Algoritmo di similarità basato su word matching
+- Normalizzazione query di ricerca lato server
+
 ## [1.0.5] - 2026-01-24
 
 ### ✨ Aggiunto
