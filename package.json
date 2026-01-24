@@ -18,7 +18,10 @@
     "converter",
     "electron"
   ],
-  "author": "Marco Gennaro",
+  "author": {
+    "name": "Marco Gennaro",
+    "email": "audiobook-creator@marcogenna.dev"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
