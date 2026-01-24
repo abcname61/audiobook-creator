@@ -38,6 +38,9 @@ app.whenReady().then(async () => {
   // Inizializza il convertitore
   converter = new AudiobookConverter();
 
+  // Ascolta eventi di progresso
+  converter.on('progress', sendProgress);
+
   createWindow();
 
   app.on('activate', function () {
@@ -134,5 +137,4 @@ function sendProgress(progress) {
   }
 }
 
-// Esporta per uso nello script di conversione
-converter.on('progress', sendProgress);
+// Event listener per progress viene configurato in app.whenReady()

@@ -30,8 +30,7 @@
   "homepage": "https://github.com/marcogenna/audiobook-creator#readme",
   "dependencies": {
     "fluent-ffmpeg": "^2.1.2",
-    "music-metadata": "^8.1.4",
-    "sqlite3": "^5.1.6",
+    "music-metadata": "7.14.0",
     "node-id3": "^0.2.6"
   },
   "devDependencies": {
@@ -53,16 +52,23 @@
       "node_modules/**/*"
     ],
     "win": {
-      "target": ["nsis"],
+      "target": [
+        "nsis"
+      ],
       "icon": "public/icon.ico"
     },
     "mac": {
-      "target": ["dmg"],
+      "target": [
+        "dmg"
+      ],
       "icon": "public/icon.icns",
       "category": "public.app-category.productivity"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "icon": "public/icon.png",
       "category": "AudioVideo"
     }
