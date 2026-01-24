@@ -1,6 +1,6 @@
 {
   "name": "audiobook-creator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Open-source audiobook creator - Convert MP3 to M4B with automatic organization",
   "main": "main.js",
   "scripts": {
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/marcogenna/audiobook-creator#readme",
   "dependencies": {
+    "ffmpeg-static": "5.3.0",
     "fluent-ffmpeg": "^2.1.2",
     "music-metadata": "7.14.0",
     "node-id3": "^0.2.6"

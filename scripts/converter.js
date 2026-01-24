@@ -1,9 +1,13 @@
 const ffmpeg = require('fluent-ffmpeg');
+const ffmpegStatic = require('ffmpeg-static');
 const path = require('path');
 const fs = require('fs').promises;
 const { EventEmitter } = require('events');
 const mm = require('music-metadata');
 const NodeID3 = require('node-id3');
+
+// Configure fluent-ffmpeg to use the bundled FFmpeg binary
+ffmpeg.setFfmpegPath(ffmpegStatic);
 
 class AudiobookConverter extends EventEmitter {
   constructor() {

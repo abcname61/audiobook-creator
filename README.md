@@ -13,39 +13,26 @@
 - 🎨 **Metadata Completi** - Aggiungi titolo, autore e copertina
 - 📊 **Barra di Progresso** - Monitora l'avanzamento della conversione in tempo reale
 - 📚 **Libreria Integrata** - Gestisci tutti i tuoi audiolibri creati
-- 💾 **Database SQLite** - Salvataggio automatico della cronologia
+- 💾 **Storage JSON** - Salvataggio automatico della cronologia
+- ⚡ **FFmpeg Incluso** - Nessuna installazione esterna richiesta, funziona subito
 - 🌍 **Multipiattaforma** - Funziona su Windows, macOS e Linux
 - 🆓 **100% Open Source** - Codice sorgente completamente aperto e modificabile
 
 ## 🚀 Installazione
 
-### Prerequisiti
+### Download Precompilato (Raccomandato)
+
+Scarica l'ultima versione dalla [pagina releases](https://github.com/marcogenna/audiobook-creator/releases).
+
+**L'applicazione include già FFmpeg - nessuna installazione aggiuntiva richiesta!**
+
+### Sviluppo da Sorgente
+
+#### Prerequisiti
 
 - **Node.js** (v18 o superiore)
-- **FFmpeg** installato sul sistema
 
-#### Installazione FFmpeg
-
-**Windows:**
-```bash
-# Usando Chocolatey
-choco install ffmpeg
-
-# Oppure scarica da: https://ffmpeg.org/download.html
-```
-
-**macOS:**
-```bash
-brew install ffmpeg
-```
-
-**Linux (Ubuntu/Debian):**
-```bash
-sudo apt update
-sudo apt install ffmpeg
-```
-
-### Installazione dell'Applicazione
+### Installazione da Sorgente
 
 1. **Clona il repository:**
 ```bash
@@ -138,8 +125,8 @@ audiobook-creator/
 ### Dipendenze Principali
 
 - `fluent-ffmpeg` - Wrapper Node.js per FFmpeg
+- `ffmpeg-static` - Binario FFmpeg incluso
 - `music-metadata` - Estrazione metadata audio
-- `sqlite3` - Driver SQLite per Node.js
 - `node-id3` - Gestione tag ID3
 
 ## 📋 Roadmap
