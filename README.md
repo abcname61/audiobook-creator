@@ -2,9 +2,11 @@
 
 **Audiobook Creator** è un'applicazione desktop open-source multipiattaforma per convertire file MP3 in audiolibri professionali in formato M4B.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
+[![CI](https://github.com/marcogenna/audiobook-creator/actions/workflows/ci.yml/badge.svg)](https://github.com/marcogenna/audiobook-creator/actions/workflows/ci.yml)
+[![Release](https://github.com/marcogenna/audiobook-creator/actions/workflows/release.yml/badge.svg)](https://github.com/marcogenna/audiobook-creator/actions/workflows/release.yml)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](#)
+[![Latest Release](https://img.shields.io/github/v/release/marcogenna/audiobook-creator)](https://github.com/marcogenna/audiobook-creator/releases/latest)
 
 ## ✨ Caratteristiche
 

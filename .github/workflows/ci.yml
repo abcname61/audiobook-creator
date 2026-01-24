@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        node-version: [18, 20]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check package.json syntax
+        run: node -e "require('./package.json')"
+
+      - name: Verify FFmpeg is bundled
+        run: node -e "const ffmpeg = require('ffmpeg-static'); console.log('FFmpeg path:', ffmpeg);"
