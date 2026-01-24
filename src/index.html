@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audiobook Creator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <rect width="40" height="40" rx="8" fill="#6366f1"/>
+          <path d="M12 14h16M12 20h16M12 26h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h1>Audiobook<br>Creator</h1>
+      </div>
+
+      <nav class="nav-menu">
+        <button class="nav-item active" data-view="convert">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/>
+          </svg>
+          Crea Audiolibro
+        </button>
+        
+        <button class="nav-item" data-view="library">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+          </svg>
+          Libreria
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <p class="version">v1.0.0</p>
+        <p class="credits">Open Source • MIT License</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Convert View -->
+      <div id="convert-view" class="view active">
+        <div class="view-header">
+          <h2>Crea Nuovo Audiolibro</h2>
+          <p>Converti i tuoi file MP3 in formato M4B professionale</p>
+        </div>
+
+        <div class="convert-container">
+          <!-- Step 1: Selezione File -->
+          <section class="card">
+            <div class="card-header">
+              <h3>1. Seleziona i File Audio</h3>
+            </div>
+            <div class="card-body">
+              <button id="selectFolderBtn" class="btn btn-primary btn-large">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                </svg>
+                Seleziona Cartella
+              </button>
+              
+              <div id="fileList" class="file-list" style="display: none;">
+                <div class="file-list-header">
+                  <span class="file-count">0 file selezionati</span>
+                  <button id="clearFilesBtn" class="btn btn-text">Cancella</button>
+                </div>
+                <div id="fileItems" class="file-items"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 2: Metadata -->
+          <section class="card">
+            <div class="card-header">
+              <h3>2. Aggiungi Informazioni</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="titleInput">Titolo *</label>
+                <input type="text" id="titleInput" placeholder="Es: Il Signore degli Anelli" required>
+              </div>
+
+              <div class="form-group">
+                <label for="authorInput">Autore *</label>
+                <input type="text" id="authorInput" placeholder="Es: J.R.R. Tolkien" required>
+              </div>
+
+              <div class="form-group">
+                <label for="coverInput">Copertina (opzionale)</label>
+                <div class="file-input-wrapper">
+                  <button id="selectCoverBtn" class="btn btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                    </svg>
+                    Scegli Immagine
+                  </button>
+                  <span id="coverFileName" class="file-name">Nessun file selezionato</span>
+                </div>
+                <div id="coverPreview" class="cover-preview" style="display: none;">
+                  <img id="coverImage" src="" alt="Cover preview">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="bitrateSelect">Qualità Audio</label>
+                <select id="bitrateSelect">
+                  <option value="32k">32 kbps (Bassa - File piccolo)</option>
+                  <option value="64k" selected>64 kbps (Normale - Consigliato)</option>
+                  <option value="128k">128 kbps (Alta - File grande)</option>
+                  <option value="192k">192 kbps (Massima - File molto grande)</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- Step 3: Output -->
+          <section class="card">
+            <div class="card-header">
+              <h3>3. Destinazione</h3>
+            </div>
+            <div class="card-body">
+              <div class="output-path-wrapper">
+                <input type="text" id="outputPathInput" placeholder="Seleziona la cartella di destinazione" readonly>
+                <button id="selectOutputBtn" class="btn btn-secondary">Sfoglia</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Convert Button -->
+          <div class="convert-actions">
+            <button id="convertBtn" class="btn btn-success btn-large" disabled>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+              </svg>
+              Converti in M4B
+            </button>
+          </div>
+
+          <!-- Progress -->
+          <div id="progressSection" class="progress-section" style="display: none;">
+            <div class="progress-header">
+              <span id="progressStatus">Conversione in corso...</span>
+              <span id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <p id="progressTime" class="progress-time"></p>
+          </div>
+
+          <!-- Success Message -->
+          <div id="successMessage" class="success-message" style="display: none;">
+            <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <div>
+              <h4>Conversione Completata!</h4>
+              <p id="successPath"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Library View -->
+      <div id="library-view" class="view">
+        <div class="view-header">
+          <h2>Libreria Audiolibri</h2>
+          <p>I tuoi audiolibri convertiti</p>
+        </div>
+
+        <div id="libraryGrid" class="library-grid">
+          <div class="empty-state">
+            <svg width="64" height="64" viewBox="0 0 20 20" fill="currentColor" opacity="0.3">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
+            </svg>
+            <h3>Nessun audiolibro</h3>
+            <p>Crea il tuo primo audiolibro per iniziare</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

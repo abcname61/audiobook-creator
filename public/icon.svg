@@ -1,0 +1,31 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="115" fill="url(#gradient)"/>
+  
+  <!-- Book shape -->
+  <rect x="140" y="120" width="232" height="280" rx="12" fill="white" opacity="0.95"/>
+  <rect x="140" y="120" width="40" height="280" rx="12" fill="white" opacity="0.7"/>
+  
+  <!-- Audio waves -->
+  <g opacity="0.9">
+    <rect x="220" y="200" width="16" height="60" rx="8" fill="#6366f1"/>
+    <rect x="250" y="180" width="16" height="100" rx="8" fill="#6366f1"/>
+    <rect x="280" y="160" width="16" height="140" rx="8" fill="#6366f1"/>
+    <rect x="310" y="180" width="16" height="100" rx="8" fill="#6366f1"/>
+    <rect x="340" y="200" width="16" height="60" rx="8" fill="#6366f1"/>
+  </g>
+  
+  <!-- Headphone icon -->
+  <g transform="translate(200, 320)">
+    <path d="M56 0C25.0721 0 0 25.0721 0 56V72C0 83.0457 8.95431 92 20 92H28C33.5228 92 38 87.5228 38 82V50C38 44.4772 33.5228 40 28 40H20C17.7909 40 15.7455 40.6588 14.0551 41.7961C18.6831 19.0932 38.6122 2 62 2C85.3878 2 105.317 19.0932 109.945 41.7961C108.254 40.6588 106.209 40 104 40H96C90.4772 40 86 44.4772 86 50V82C86 87.5228 90.4772 92 96 92H104C115.046 92 124 83.0457 124 72V56C124 25.0721 98.9279 0 68 0H56Z" 
+          fill="white" 
+          transform="scale(0.8) translate(10, 0)"/>
+  </g>
+  
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="512" y2="512">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+</svg>

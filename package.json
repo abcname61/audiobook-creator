@@ -1,0 +1,70 @@
+{
+  "name": "audiobook-creator",
+  "version": "1.0.0",
+  "description": "Open-source audiobook creator - Convert MP3 to M4B with automatic organization",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "audiobook",
+    "mp3",
+    "m4b",
+    "converter",
+    "electron"
+  ],
+  "author": "Marco Gennaro",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcogenna/audiobook-creator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcogenna/audiobook-creator/issues"
+  },
+  "homepage": "https://github.com/marcogenna/audiobook-creator#readme",
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.2",
+    "music-metadata": "^8.1.4",
+    "sqlite3": "^5.1.6",
+    "node-id3": "^0.2.6"
+  },
+  "devDependencies": {
+    "electron": "^28.1.0",
+    "electron-builder": "^24.9.1"
+  },
+  "build": {
+    "appId": "com.audiobook.creator",
+    "productName": "Audiobook Creator",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "public/**/*",
+      "scripts/**/*",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": ["nsis"],
+      "icon": "public/icon.ico"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "public/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "icon": "public/icon.png",
+      "category": "AudioVideo"
+    }
+  }
+}
