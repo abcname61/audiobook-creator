@@ -36,6 +36,18 @@ e questo progetto aderisce al [Semantic Versioning](https://semver.org/lang/it/)
 
 ---
 
+## [1.0.4] - 2026-01-24
+
+### ✨ Aggiunto
+- **Supporto capitoli**: Gli audiolibri M4B ora includono capitoli automatici
+- Ogni file MP3 diventa un capitolo nel M4B finale
+- Titoli capitoli generati automaticamente dal nome dei file
+
+### 🔧 Technical
+- Implementata generazione metadata FFmetadata1 per i capitoli
+- Calcolo automatico dei timestamp per ogni capitolo
+- Creazione file temporaneo chapters.txt durante la conversione
+
 ## [1.0.3] - 2026-01-24
 
 ### 🐛 Bug Fix

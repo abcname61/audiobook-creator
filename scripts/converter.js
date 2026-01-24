@@ -131,15 +131,24 @@ class AudiobookConverter extends EventEmitter {
 
     await fs.writeFile(listFilePath, listContent, 'utf-8');
 
+    // Genera metadata file per i capitoli
+    const metadataFilePath = path.join(path.dirname(outputPath), 'chapters.txt');
+    const chaptersMetadata = await this.generateChapterMetadata(files);
+    await fs.writeFile(metadataFilePath, chaptersMetadata, 'utf-8');
+
     return new Promise((resolve, reject) => {
       const command = ffmpeg()
         .input(listFilePath)
         .inputOptions(['-f', 'concat', '-safe', '0'])
+        .input(metadataFilePath)
+        .inputOptions(['-f', 'ffmetadata'])
         .audioCodec('aac')
         .audioBitrate(metadata.bitrate)
         .format('ipod')
         .outputOptions([
           '-f', 'mp4',
+          '-map', '0:a',
+          '-map_metadata', '1',
           '-metadata', `title=${metadata.title}`,
           '-metadata', `artist=${metadata.author}`,
           '-metadata', `album=${metadata.title}`,
@@ -149,10 +158,9 @@ class AudiobookConverter extends EventEmitter {
       // Aggiungi cover image se presente
       if (metadata.coverImage) {
         command.input(metadata.coverImage).outputOptions([
-          '-map 0:a',
-          '-map 1:v',
-          '-c:v copy',
-          '-disposition:v:0 attached_pic'
+          '-map', '2:v',
+          '-c:v', 'copy',
+          '-disposition:v:0', 'attached_pic'
         ]);
       }
 
@@ -171,7 +179,7 @@ class AudiobookConverter extends EventEmitter {
             const timeParts = progress.timemark.split(':');
             const seconds = (+timeParts[0]) * 3600 + (+timeParts[1]) * 60 + (+timeParts[2]);
             const percent = (seconds / totalDuration) * 100;
-            
+
             this.emit('progress', {
               stage: 'converting',
               percent: Math.round(percent),
@@ -180,24 +188,26 @@ class AudiobookConverter extends EventEmitter {
           }
         })
         .on('end', async () => {
-          // Pulisci file temporaneo
+          // Pulisci file temporanei
           try {
             await fs.unlink(listFilePath);
+            await fs.unlink(metadataFilePath);
           } catch (err) {
-            console.warn('Could not delete temp file:', err);
+            console.warn('Could not delete temp files:', err);
           }
-          
+
           this.emit('progress', { stage: 'complete', percent: 100 });
           resolve();
         })
         .on('error', async (err) => {
-          // Pulisci file temporaneo in caso di errore
+          // Pulisci file temporanei in caso di errore
           try {
             await fs.unlink(listFilePath);
+            await fs.unlink(metadataFilePath);
           } catch (e) {
             // Ignora errori di pulizia
           }
-          
+
           console.error('FFmpeg error:', err);
           reject(err);
         })
@@ -216,6 +226,52 @@ class AudiobookConverter extends EventEmitter {
       }
     }
     return total;
+  }
+
+  async generateChapterMetadata(files) {
+    let currentTime = 0;
+    const chapters = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      let duration = 0;
+
+      try {
+        const metadata = await mm.parseFile(file.path);
+        duration = metadata.format.duration || 0;
+      } catch (err) {
+        console.warn(`Could not read duration for ${file.name}:`, err);
+        duration = 0;
+      }
+
+      // Converti in millisecondi per FFmpeg
+      const startMs = Math.round(currentTime * 1000);
+      const endMs = Math.round((currentTime + duration) * 1000);
+
+      // Usa il nome del file senza estensione come titolo del capitolo
+      const chapterTitle = path.basename(file.name, path.extname(file.name));
+
+      chapters.push({
+        start: startMs,
+        end: endMs,
+        title: chapterTitle
+      });
+
+      currentTime += duration;
+    }
+
+    // Genera il formato FFmetadata
+    let metadataContent = ';FFMETADATA1\n';
+
+    for (const chapter of chapters) {
+      metadataContent += '\n[CHAPTER]\n';
+      metadataContent += `TIMEBASE=1/1000\n`;
+      metadataContent += `START=${chapter.start}\n`;
+      metadataContent += `END=${chapter.end}\n`;
+      metadataContent += `title=${chapter.title}\n`;
+    }
+
+    return metadataContent;
   }
 
   sanitizeFilename(filename) {
